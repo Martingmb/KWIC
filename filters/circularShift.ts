@@ -13,7 +13,21 @@ export class circularShift {
      * @memberof circularShift
      */
     circularShift() {
+        this.objectData.input.forEach(line => {
+            let words = line.split(" ");
+            let length = words.length;
 
+            for(let i = 0; i < length; i++) {
+                let lineOutput: string;
+                
+                let temp: string = String(words.pop());
+                words.unshift(temp);
+
+                lineOutput = words.join(" ");
+                this.objectData.output.push(lineOutput);
+            }
+
+        });
     }
     
     /**
