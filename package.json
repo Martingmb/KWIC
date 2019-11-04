@@ -1,0 +1,27 @@
+{
+  "name": "kwic",
+  "version": "0.0.1",
+  "description": "Ejercio de implementacion de KeyWords In Context para la clase de Arquitectura de Software",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "echo \"Compiling .ts\" && tsc main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Martingmb/KWIC.git"
+  },
+  "keywords": [
+    "KWIC",
+    "Arquitectura",
+    "Pipes",
+    "&",
+    "Filters"
+  ],
+  "author": "Placeholder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Martingmb/KWIC/issues"
+  },
+  "homepage": "https://github.com/Martingmb/KWIC#readme"
+}
