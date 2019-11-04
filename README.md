@@ -9,3 +9,5 @@ Esta solución es un flujo de datos entre los siguientes filtros:
 4. Output (Representación de datos)
 
 ![Alt text](./Pipeline.svg)
+
+La información se mueve a lo largo de los filtros, donde en cada filtro se procesa información
