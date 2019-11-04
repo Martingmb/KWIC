@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "echo \"Compiling .ts\" && tsc main.ts"
+    "compile": "echo \"Compiling .ts\" && tsc main.ts && echo \"Ejecutando main.js\" && node main.js"
   },
   "repository": {
     "type": "git",
