@@ -10,6 +10,8 @@ export class circularShift {
     /**
      *!Algoritmo de procesamiento de datos
      *?Usa el objecto: objectData que tiene la interface inputOutput
+     **Procesa cada linea y hace shift hacia la derecha de 1 elemento
+     **Obtiene el ultimo elemento y lo agrega al inicio de la lista
      * @memberof circularShift
      */
     circularShift() {
