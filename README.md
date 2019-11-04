@@ -9,4 +9,3 @@ Esta solución es un flujo de datos entre los siguientes filtros:
 4. Output (Representación de datos)
 
 ![Alt text](./Pipeline.svg)
-<img src="./Pipeline.svg">
