@@ -10,3 +10,5 @@ Esta solución es un flujo de datos entre los siguientes filtros:
 
 ![Alt text](./Pipeline.svg)
 <img src="./Pipeline.svg">
+
+La información se mueve a lo largo de los filtros, donde en cada filtro se procesa información
