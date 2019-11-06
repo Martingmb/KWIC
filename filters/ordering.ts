@@ -13,7 +13,7 @@ export class ordering {
      * @memberof ordering
      */
     order() {
-
+      this.objectData.output.sort();
     }
 
     /**

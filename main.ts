@@ -7,12 +7,21 @@ let inputFilter: input = new input();
 let algorithmFilter: circularShift;
 let order: ordering;
 
-let lineas = ["Clouds are white", "Pittsburgh is beautiful."];
+let lineas = ["Clouds are white.", "Pittsburgh is beautiful."];
 
+// Input filter
 inputFilter.setLines(lineas);
 
-algorithmFilter = new circularShift(inputFilter.getData());
-
+// Algorithm filter
+let inputFilterDara = inputFilter.getData();
+algorithmFilter = new circularShift(inputFilterDara);
 algorithmFilter.circularShift();
 
-console.log(algorithmFilter.getData());
+// Order
+let algorithmFilterData = algorithmFilter.getData();
+order = new ordering(algorithmFilterData);
+order.order();
+
+// Final result
+let orderData = order.getData();
+console.log(orderData);
