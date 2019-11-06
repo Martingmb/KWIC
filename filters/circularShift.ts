@@ -19,9 +19,18 @@ export class circularShift {
             let words = line.split(" ");
             let length = words.length;
 
+            // Remove point at the end of line
+            let lastWord = words[length-1];
+            if (lastWord[lastWord.length-1] == '.') {
+              words[length-1] = lastWord.substr(0, lastWord.length - 1);
+            }
+
             for(let i = 0; i < length; i++) {
+                // Change every letter to lowercase
+                words[i] = words[i].toLowerCase( );
+
                 let lineOutput: string;
-                
+
                 let temp: string = String(words.pop());
                 words.unshift(temp);
 
@@ -31,7 +40,7 @@ export class circularShift {
 
         });
     }
-    
+
     /**
      *!Funcion que regresa el inputOutput
      *
