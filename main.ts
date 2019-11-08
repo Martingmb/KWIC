@@ -7,21 +7,24 @@ let inputFilter: input = new input();
 let algorithmFilter: circularShift;
 let order: ordering;
 
-let lineas = ["Clouds are white.", "Pittsburgh is beautiful."];
+async function main() {
 
-// Input filter
-inputFilter.setLines(lineas);
+    await inputFilter.input();
 
-// Algorithm filter
-let inputFilterDara = inputFilter.getData();
-algorithmFilter = new circularShift(inputFilterDara);
-algorithmFilter.circularShift();
+    // Algorithm filter
+    let inputFilterDara = inputFilter.getData();
+    algorithmFilter = new circularShift(inputFilterDara);
+    algorithmFilter.circularShift();
 
-// Order
-let algorithmFilterData = algorithmFilter.getData();
-order = new ordering(algorithmFilterData);
-order.order();
+    // Order
+    let algorithmFilterData = algorithmFilter.getData();
+    order = new ordering(algorithmFilterData);
+    order.order();
 
-// Final result
-let orderData = order.getData();
-console.log(orderData);
+    // Final result
+    let orderData = order.getData();
+    console.log(orderData);
+
+}
+
+main();

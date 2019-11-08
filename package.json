@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/Martingmb/KWIC/issues"
   },
-  "homepage": "https://github.com/Martingmb/KWIC#readme"
+  "homepage": "https://github.com/Martingmb/KWIC#readme",
+  "dependencies": {
+    "@types/inquirer": "^6.5.0",
+    "inquirer": "^7.0.0"
+  }
 }
