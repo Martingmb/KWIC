@@ -12,8 +12,8 @@ async function main() {
     await inputFilter.input();
 
     // Algorithm filter
-    let inputFilterDara = inputFilter.getData();
-    algorithmFilter = new circularShift(inputFilterDara);
+    let inputFilterData = inputFilter.getData();
+    algorithmFilter = new circularShift(inputFilterData);
     algorithmFilter.circularShift();
 
     // Order
@@ -24,6 +24,12 @@ async function main() {
     // Final result
     let orderData = order.getData();
     console.log(orderData);
+
+    for (let index = 0; index < orderData.output.length; index++) {
+        console.log(index + 1, orderData.output[index]);
+        
+    }
+
 
 }
 
