@@ -16,7 +16,8 @@ export class circularShift {
      */
     circularShift() {
         this.objectData.input.forEach(line => {
-            let words = line.split(" ");
+            let lineT = line.toLowerCase();
+            let words = lineT.split(" ");
             let length = words.length;
 
             // Remove point at the end of line
@@ -26,8 +27,6 @@ export class circularShift {
             }
 
             for(let i = 0; i < length; i++) {
-                // Change every letter to lowercase
-                words[i] = words[i].toLowerCase( );
 
                 let lineOutput: string;
 
