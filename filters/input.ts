@@ -53,6 +53,25 @@ export class input {
         })
     }
 
+    async askForRemoveEntryLines() {
+        return Inquirer.prompt({
+            type: 'checkbox',
+            name: 'lines',
+            message: 'Quieres quitar las lineas entrada?',
+            choices: [
+                'Si', 'No'
+            ]
+        })
+    }
+
+    async askForLinesToRemove() {
+        return Inquirer.prompt({
+            type: 'input',
+            name: 'lines',
+            message: 'Cuales lineas quieres quitar?'
+        })
+    }
+
     async readFile(fileName: string) {
         let reader = rd.createInterface(fs.createReadStream(`./${fileName}`));
         let lineas: Array<string> = [];
@@ -77,6 +96,26 @@ export class input {
         } else {
             let fileName = await this.askForFile();
             this.objectData.input = await this.readFile(fileName.fileName);
+
+            for (let index = 0; index < this.objectData.input.length; index++) {
+                console.log(index + 1, this.objectData.input[index]);
+                
+            }
+
+            let choice = await this.askForRemoveEntryLines()
+
+            if(choice.lines == 'Si') {
+                let linesToRemove = await this.askForLinesToRemove();
+
+                let linesIndex = linesToRemove.lines.split(' ').map(function(item: any) {
+                    return parseInt(item, 10);
+                });
+
+                for (let index = 0; index < linesIndex.length; index++) {
+                    this.objectData.input.splice(linesIndex[index] - 1, 1);
+                }
+
+            }
 
         }
     }
