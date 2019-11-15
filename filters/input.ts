@@ -55,6 +55,25 @@ export class input {
         })
     }
 
+    async askForRemoveEntryLines() {
+        return Inquirer.prompt({
+            type: 'checkbox',
+            name: 'lines',
+            message: 'Quieres quitar las lineas entrada?',
+            choices: [
+                'Si', 'No'
+            ]
+        })
+    }
+
+    async askForLinesToRemove() {
+        return Inquirer.prompt({
+            type: 'input',
+            name: 'lines',
+            message: 'Cuales lineas quieres quitar?'
+        })
+    }
+
     async askForOrderType() {
       return Inquirer.prompt({
             type: 'list',
@@ -98,6 +117,27 @@ export class input {
               // Ask for file name
               let fileName = await this.askForFile();
               this.objectData.input = await this.readFile(fileName.fileName);
+
+              let choice = await this.askForRemoveEntryLines()
+
+                if(choice.lines == 'Si') {
+                    let linesToRemove = await this.askForLinesToRemove();
+
+                    let linesIndex = linesToRemove.lines.split(' ').map(function(item: any) {
+                        return parseInt(item, 10);
+                    }).sort((a:any, b:any) => (a > b ? -1 : 1));
+
+                    console.log("Before ", this.objectData.input)
+                    if(linesIndex[0] - 1 >= this.objectData.input.length || linesIndex[linesIndex.length] <= 0) {
+                        throw Error('Fuera de Rango');
+                    }
+
+                    for (let index = 0; index < linesIndex.length; index++) {
+                            this.objectData.input.splice(linesIndex[index] - 1, 1);
+                    }
+                    console.log("After ", this.objectData.input)
+
+                }
           }
         }
     }
