@@ -6,6 +6,7 @@ import * as rd from 'readline';
 export class input {
 
     private objectData: inputOutput;
+    private orderType: number;
     private numberOfLines: number;
 
     constructor() {
@@ -13,6 +14,7 @@ export class input {
             input: [],
             output: []
         }
+        this.orderType = 0;
         this.numberOfLines = 0;
     }
 
@@ -53,23 +55,13 @@ export class input {
         })
     }
 
-    async askForRemoveEntryLines() {
-        return Inquirer.prompt({
-            type: 'checkbox',
-            name: 'lines',
-            message: 'Quieres quitar las lineas entrada?',
-            choices: [
-                'Si', 'No'
-            ]
-        })
-    }
-
-    async askForLinesToRemove() {
-        return Inquirer.prompt({
-            type: 'input',
-            name: 'lines',
-            message: 'Cuales lineas quieres quitar?'
-        })
+    async askForOrderType() {
+      return Inquirer.prompt({
+            type: 'list',
+            name: 'orderType',
+            message: 'Escoge un orden',
+            choices: ["Ascendente", "Descendente"]
+      })
     }
 
     async readFile(fileName: string) {
@@ -84,39 +76,29 @@ export class input {
     }
 
     async input() {
-        let type = await this.askForType();
-        if(type.type == 'Escribirlas') {
-            await this.askForLines();
-
-            for (let index = 0; index < this.numberOfLines; index++) {
-                let line = await this.askForLine();
-                this.objectData.input.push(line.line);
-            }
-
+        // Ask for order type
+        let orderType = await this.askForOrderType();
+        if(orderType.orderType == "Ascendente") {
+          this.orderType = 1;
         } else {
-            let fileName = await this.askForFile();
-            this.objectData.input = await this.readFile(fileName.fileName);
+          this.orderType = 2;
+        }
+        if(orderType.orderType != 0) {
+          // Ask for type
+          let type = await this.askForType();
+          if(type.type == 'Escribirlas') {
+              // Ask for lines
+              await this.askForLines();
 
-            for (let index = 0; index < this.objectData.input.length; index++) {
-                console.log(index + 1, this.objectData.input[index]);
-                
-            }
-
-            let choice = await this.askForRemoveEntryLines()
-
-            if(choice.lines == 'Si') {
-                let linesToRemove = await this.askForLinesToRemove();
-
-                let linesIndex = linesToRemove.lines.split(' ').map(function(item: any) {
-                    return parseInt(item, 10);
-                });
-
-                for (let index = 0; index < linesIndex.length; index++) {
-                    this.objectData.input.splice(linesIndex[index] - 1, 1);
-                }
-
-            }
-
+              for (let index = 0; index < this.numberOfLines; index++) {
+                  let line = await this.askForLine();
+                  this.objectData.input.push(line.line);
+              }
+          } else {
+              // Ask for file name
+              let fileName = await this.askForFile();
+              this.objectData.input = await this.readFile(fileName.fileName);
+          }
         }
     }
 
@@ -139,4 +121,13 @@ export class input {
         return this.objectData;
     }
 
+    /**
+     *!Funcion que regresa el orderType
+     *
+     * @returns {orderType}
+     * @memberof input
+     */
+    getOrderType(): number {
+      return this.orderType;
+    }
 }

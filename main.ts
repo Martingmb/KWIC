@@ -18,7 +18,8 @@ async function main() {
 
     // Order
     let algorithmFilterData = algorithmFilter.getData();
-    order = new ordering(algorithmFilterData);
+    let orderType = inputFilter.getOrderType();
+    order = new ordering(algorithmFilterData, orderType);
     order.order();
 
     // Final result
@@ -26,10 +27,7 @@ async function main() {
 
     for (let index = 0; index < orderData.output.length; index++) {
         console.log(index + 1, orderData.output[index]);
-        
     }
-
-
 }
 
 main();
