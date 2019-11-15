@@ -8,6 +8,7 @@ export class input {
     private objectData: inputOutput;
     private orderType: number;
     private numberOfLines: number;
+    private blacklistWords: Array<any>;
 
     constructor() {
         this.objectData = {
@@ -16,6 +17,15 @@ export class input {
         }
         this.orderType = 0;
         this.numberOfLines = 0;
+        this.blacklistWords = [];
+        this.readBlackWord();
+    }
+
+    async readBlackWord() {
+        let reader = rd.createInterface(fs.createReadStream('./KWIC2_stop.txt'));
+        for await(const line of reader) {
+            this.blacklistWords.push(line);
+        }
     }
 
     async askForLines() {
@@ -66,6 +76,17 @@ export class input {
         })
     }
 
+    async askForRemoveStopWords() {
+        return Inquirer.prompt({
+            type: 'checkbox',
+            name: 'result',
+            message: 'Quieres quitar las stop words?',
+            choices: [
+                'Si', 'No'
+            ]
+        })
+    }
+
     async askForLinesToRemove() {
         return Inquirer.prompt({
             type: 'input',
@@ -92,6 +113,16 @@ export class input {
         }
 
         return lineas;
+    }
+
+    checkBlacklist(word: string) {
+        this.blacklistWords.forEach(bword => {
+            if(bword == word) {
+                return false;
+            }
+        })
+
+        return true;
     }
 
     async input() {
@@ -121,13 +152,16 @@ export class input {
               let choice = await this.askForRemoveEntryLines()
 
                 if(choice.lines == 'Si') {
+                    this.objectData.input.forEach((line, index) => {
+                        console.log(index + 1, line)
+                    })
+
                     let linesToRemove = await this.askForLinesToRemove();
 
                     let linesIndex = linesToRemove.lines.split(' ').map(function(item: any) {
                         return parseInt(item, 10);
                     }).sort((a:any, b:any) => (a > b ? -1 : 1));
 
-                    console.log("Before ", this.objectData.input)
                     if(linesIndex[0] - 1 >= this.objectData.input.length || linesIndex[linesIndex.length] <= 0) {
                         throw Error('Fuera de Rango');
                     }
@@ -135,9 +169,26 @@ export class input {
                     for (let index = 0; index < linesIndex.length; index++) {
                             this.objectData.input.splice(linesIndex[index] - 1, 1);
                     }
-                    console.log("After ", this.objectData.input)
+
+                    
 
                 }
+
+                let stopWords = await this.askForRemoveStopWords();
+
+                    if(stopWords.result == 'Si') {
+                        for (let index = 0; index < this.objectData.input.length; index++) {
+                            let line = this.objectData.input[index].split(" ");
+                            let arrTemp: any = [];
+                            line.forEach(word => {
+                                if(this.checkBlacklist(word)) {
+                                    arrTemp.push(word);
+                                }
+                            })
+
+                            this.objectData.input[index] = arrTemp.join(" ");
+                        }
+                    }
           }
         }
     }
