@@ -2,9 +2,11 @@ import { inputOutput } from './../interfaces/inputOutput';
 
 export class ordering {
     private objectData: inputOutput;
+    private orderType: number;
 
-    constructor(data: inputOutput) {
+    constructor(data: inputOutput, orderType: number) {
         this.objectData = data;
+        this.orderType = orderType;
     }
 
     /**
@@ -13,7 +15,12 @@ export class ordering {
      * @memberof ordering
      */
     order() {
-      this.objectData.output.sort();
+      if (this.orderType == 1) {
+        this.objectData.output.sort();
+      }
+      else {
+        this.objectData.output.sort((a, b) => (a > b ? -1 : 1));
+      }
     }
 
     /**
